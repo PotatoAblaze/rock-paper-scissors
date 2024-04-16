@@ -1,2 +1,2 @@
-# tic-tac-toe
-A browser console based tic tac toe game implementation. GUI will be added soon.
+# Rock Paper Scissors
+A browser based rock paper scissors game implementation. GUI will be added soon.
