@@ -85,14 +85,46 @@ function playRound(playerSelection, computerSelection)
 }
 
 
-function playGame()
+const buttonContainer = document.querySelector("#button-container");
+const resultDiv = document.querySelector("#result");
+const scoreDiv = document.querySelector("#score");
+const winnerDiv = document.querySelector("#winner");
+
+
+let playerScore = 0;
+let computerScore = 0;
+
+function updateScore()
 {
-    for(x = 0; x < 5; x++)
-    {
-        playerInput = prompt("Enter your choice of Rock, Paper or Scisssors: ");
-        computerInput = getComputerChoice();
-        console.log(playRound(playerInput, computerInput));
-    }
+    resultDiv.textContent = `Your Score: ${playerScore}  |  Computer Score: ${computerScore}`;
 }
 
-playGame();
+
+function onClick(e)
+{
+    const outputMessage = playRound(e.target.id, getComputerChoice());
+    scoreDiv.textContent = outputMessage;
+    if(outputMessage.startsWith("You Won"))
+    {
+        playerScore++;
+        if(playerScore == 5)
+        {
+            winnerDiv.textContent = "YOU ARE THE FINAL WINNER!";
+            buttonContainer.removeEventListener("click", onClick);
+        }
+    }
+    else if(outputMessage.startsWith("You Lost"))
+    {
+        computerScore++;
+        if(computerScore == 5)
+        {
+            winnerDiv.textContent = "THE COMPUTER IS THE FINAL WINNER!";
+            buttonContainer.removeEventListener("click", onClick);
+        }
+    }
+    updateScore();
+}
+
+buttonContainer.addEventListener("click", onClick);
+
+
